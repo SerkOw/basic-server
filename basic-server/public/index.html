@@ -1,0 +1,154 @@
+
+<html>
+
+	<head>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>My basic website</title>
+
+		<link rel="stylesheet" type="text/css" href="./style.css"/>
+		<script src="./vendor/jquery/jquery-2.1.0.min.js"></script>
+		<script src="./vendor/d3/d3.v3.js"></script>
+		<script src="https://cdn.firebase.com/v0/firebase.js"></script>
+
+	</head>
+
+	<body>
+
+ 		<div id="orange"></div>
+
+
+ 		<script type='text/javascript'>
+
+var events = [
+{"name":"veniam ","rating":2,"ficticious":false},
+{"name":"consequat ","rating":2,"ficticious":true},
+{"name":"Excepteur reprehenderit ","rating":1,"ficticious":true},
+{"name":"ea ","rating":2,"ficticious":false},
+{"name":"sed ","rating":2,"ficticious":true},
+{"name":"sunt Ut ","rating":3,"ficticious":true},
+{"name":"magna adipisicing ","rating":3,"ficticious":true},
+{"name":"amet ","rating":4,"ficticious":true},
+{"name":"id et ","rating":5,"ficticious":false},
+{"name":"ut ","rating":1,"ficticious":false},
+{"name":"est veniam ","rating":5,"ficticious":true},
+{"name":"enim magna ","rating":4,"ficticious":false},
+{"name":"nostrud ","rating":5,"ficticious":false},
+{"name":"non voluptate ","rating":1,"ficticious":true},
+{"name":"laborum ","rating":2,"ficticious":false},
+{"name":"incididunt ","rating":1,"ficticious":true},
+{"name":"deserunt ","rating":5,"ficticious":false},
+{"name":"eu ","rating":4,"ficticious":false},
+{"name":"consectetur ","rating":2,"ficticious":false},
+{"name":"magna id ","rating":3,"ficticious":true}
+]
+
+var w = 800 
+var h = 300 
+var barPadding = 5
+
+var ratings = function(d) { return d.rating * 30};
+var rating = function(d) { return d.rating};
+var names = function (d) {return d.name};
+ 
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h)
+ 
+svg.selectAll("rect")
+   .data(events)
+   .enter()
+   .append("rect")
+ .attr("x", function(d, i) {return i * (w / events.length);})
+.attr("y", function(d) {return h - (d.rating * 30);})
+.attr("width", (w / events.length - barPadding))
+.attr("height", ratings)
+.attr("fill", function(d) {
+    return "rgb(64, 224, " + (d.rating * 50) + ")";})
+.on("mouseover", function() {
+        d3.select(this)
+          .attr("fill", "purple");})
+.on("mouseout", function() {
+        d3.select(this)
+        .transition()
+        .duration(250)
+          .attr("fill", function(d) {
+    return "rgb(64, 224, " + (d.rating * 50) + ")";})})
+ 
+//svg.selectAll("rect")
+.filter(function (d, i) {
+                    return d.ficticious == true;
+                })
+                .attr("stroke", 'red');
+            
+svg.selectAll("rect").attr('stroke', function(d){
+    if(d.ficticious){
+      return 'red';
+    }
+    return 'black';
+  });
+ 
+svg.selectAll("text")
+   .data(events)
+   .enter()
+   .append("text")
+.text(function(d) {return d.rating})
+.attr("x", function(d, i) {
+        return i * (w / events.length) + (w / events.length - barPadding) / 2;
+   }).attr("y", function(d) {
+        return h - (d.rating * 15);
+   }).attr("text-anchor", "middle")
+.attr("font-family", "calibri")
+   .attr("font-size", "14px")
+   .attr("fill", function(d) {
+    return "rgb(64, 224, " + (d.rating * 50) + ")";})
+ 
+ 
+var svg2 = d3.select("body")
+            .append("svg")
+            .attr("width", 800)
+            .attr("height", 200)
+ 
+svg2.selectAll("text")
+.data(events)
+.enter()
+.append("text")
+.text(names)
+.attr("x", function(d, i) {
+        return i * (w / events.length) + (w / events.length - barPadding) / 2})
+.attr("text-anchor", "middle")
+.attr("y", 60)
+.attr("font-family", "arial")
+   .attr("font-size", "10px")
+   .attr("fill", function(d) {
+    return "rgb(64, 224, " + (d.rating * 50) + ")";})
+.style("writing-mode", "tb")
+//.style("glyph-orientation-vertical", "1")
+ 
+ 
+
+
+
+ </script>
+
+
+
+	</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
