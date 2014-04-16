@@ -7,17 +7,25 @@
 		<meta charset="utf-8">
 		<title>My basic website</title>
 
-    <link href="http://fonts.googleapis.com/css?family=Varela" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="./style.css"/>
-    <link href="./fonts.css" rel="stylesheet" type="text/css" media="all" />
-		<script src="./vendor/jquery/jquery-2.1.0.min.js"></script>
-		<script src="./vendor/d3/d3.v3.js"></script>
-		<script src="https://cdn.firebase.com/v0/firebase.js"></script>
-    <script src="main.js"></script>
+      <script src="bower_components/platform/platform.js"></script>
+      <link rel="import" href="./elements/storymaker.html"> 
+
+      <link href="http://fonts.googleapis.com/css?family=Varela" rel="stylesheet">
+		  <link rel="stylesheet" type="text/css" href="./style.css"/>
+      <link href="./fonts.css" rel="stylesheet" type="text/css" media="all" />
+		  <script src="./vendor/jquery/jquery-2.1.0.min.js"></script>
+		  <script src="./vendor/d3/d3.v3.js"></script>
+		  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+      <script src="main.js"></script>
+
+    
 
 	</head>
 
 	<body>
+
+      
+
    <div id="wrapper">
 
     <div id="banner">
@@ -28,6 +36,7 @@
           <div class="title">
 
               <h1>Welcome to my simple website</h1>
+             
      
           </div>
 
@@ -38,7 +47,8 @@
     <div id="extra" class="container">
 
       <div class="title">
-        <h2>Here, I will present my work</h2>
+        <h2>Story-maker 1.0</h2>
+         <story-maker></story-maker>
       </div>
 
      </div>
@@ -49,135 +59,6 @@
 
 
  <script type='text/javascript'>
-
-var events = [
-{"name":"veniam ","rating":2,"ficticious":false},
-{"name":"consequat ","rating":2,"ficticious":true},
-{"name":"Excepteur reprehenderit ","rating":1,"ficticious":true},
-{"name":"ea ","rating":2,"ficticious":false},
-{"name":"sed ","rating":2,"ficticious":true},
-{"name":"sunt Ut ","rating":3,"ficticious":true},
-{"name":"magna adipisicing ","rating":3,"ficticious":true},
-{"name":"amet ","rating":4,"ficticious":true},
-{"name":"id et ","rating":5,"ficticious":false},
-{"name":"ut ","rating":1,"ficticious":false},
-{"name":"est veniam ","rating":5,"ficticious":true},
-{"name":"enim magna ","rating":4,"ficticious":false},
-{"name":"nostrud ","rating":5,"ficticious":false},
-{"name":"non voluptate ","rating":1,"ficticious":true},
-{"name":"laborum ","rating":2,"ficticious":false},
-{"name":"incididunt ","rating":1,"ficticious":true},
-{"name":"deserunt ","rating":5,"ficticious":false},
-{"name":"eu ","rating":4,"ficticious":false},
-{"name":"consectetur ","rating":2,"ficticious":false},
-{"name":"magna id ","rating":3,"ficticious":true}
-]
-
-var margin = { top: 20, right: 20, bottom: 20, left: 40 };
-var w = 800 - margin.left - margin.right; 
-var h = 500  - margin.top - margin.bottom;
-var chartHeight = 400;
-
-var barPadding = 5
-
-
-var ratings = function(d) { return d.rating * 30};
-var rating = function(d) { return d.rating};
-var names = function (d) {return d.name};
- 
-var svg = d3.select("body")
-            .append("svg")
-            .attr("width", w + margin.left + margin.right)
-            .attr("height", h + margin.top + margin.bottom)
-            .append('g')
-            .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
- 
-            
-var xScale = d3.scale.ordinal()
-  .domain(d3.range(events.length))
-  .rangeRoundBands([0, w], 0.2);
- 
-  var yScale = d3.scale.linear()
-  .domain([0, d3.max(events, function(d) { return d.rating; })])
-  .range([chartHeight, 0])
-
-var yAxis = d3.svg.axis()
-  .scale(yScale)
-  .orient("left")
-  .ticks(5);
-
-var barChart = svg.selectAll('g')
-    .data(events)
-    .enter()
-    .append('g')
-    .attr('x', function(d,i) {
-      return xScale(i) + xScale.rangeBand();
-    })
-    .attr('width', xScale.rangeBand() + 10)
-    .attr('height', chartHeight)
-    .append('g')
-    .attr("transform", function(d, i) {
-      return "translate(" + xScale(i) + "," + 0 + ")";
-    })
- 
-    barChart.append('rect')
-    .attr('x', 0)
-    .attr('y', function(d) {
-      return yScale(d.rating);
-    })
-    .attr('width', xScale.rangeBand()) 
-    .attr('height', function(d){
-      return chartHeight - yScale(d.rating);
-    })
-  .attr("fill", function(d) {
-    return "rgb(64, 224, " + (d.rating * 50) + ")";})
-.on("mouseover", function() {
-        d3.select(this)
-          .attr("fill", "purple");})
-.on("mouseout", function() {
-        d3.select(this)
-        .transition()
-        .duration(250)
-          .attr("fill", function(d) {
-    return "rgb(64, 224, " + (d.rating * 50) + ")";})})
-.attr('stroke', function(d){
-    if(d.ficticious){
-      return 'red';
-    }
-    return 'black';
-  })
-    .style('stroke-width', '2px')
- 
-            
-barChart.append("text")
-    .text(rating)
-    .attr("text-anchor", "middle")
-    .attr("x", function(d, i) { return xScale.rangeBand() / 2; })
-    .attr("y", function(d) { return yScale(d.rating) + 20; })
-    .attr("font-family", "calibri")
-    .attr("font-size", "12px")
-    .attr("fill", function(d) {
-    return "rgb(64, 224, " + (d.rating * 50) + ")";})
- 
- 
-  barChart.append("text")
-    .text(names)
-    .attr("x", function(d, i) { return xScale.rangeBand() / 2; })
-    .attr("y", chartHeight + 10)
-    .attr("font-family", "calibri")
-    .attr("font-size", "12px")
-    .attr("fill", function(d) {
-    return "rgb(64, 224, " + (d.rating * 50) + ")";})
-    .style("writing-mode", "tb");
- 
-  svg.append("g")
-    .attr("class", "axis")
-    .call(yAxis)
-    .attr("fill", "#2161A5")
-    .attr("stroke", "black")
-    .attr("font-family", "calibri")
-    .attr("font-size", "14px")
-
 
 
 
