@@ -3,16 +3,17 @@
 <polymer-element name="story-maker">
     <template>
 
-      <p>
-        This is the mighty <strong>{{protagonist}}</strong>. 
-        He has to defeat the evil <strong>{{antagonist}}</strong>.
-      
+      <p id="paragraph">
+        This is the mighty <span style="color: {{color1}}">{{protagonist}}</span>.  
+        He has to defeat the evil <span style="color: {{color2}}">{{antagonist}}</span>.
       </p>
+
       <input id="nameInput" value="{{protagonist}}"
            placeholder="Protagonist's name">
       <input id="nameInput2" value="{{antagonist}}"
            placeholder="Antagonist's name">
 
+      
 
     </template>
 
@@ -20,7 +21,11 @@
 
         Polymer('story-maker', {
         protagonist: "",
-        antagonist: ""
+        antagonist: "",
+        color1: "blue",
+        color2: "red",
+        
+      
 
       });
 
