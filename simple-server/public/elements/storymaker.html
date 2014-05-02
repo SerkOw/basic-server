@@ -1,0 +1,36 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<polymer-element name="story-maker">
+    <template>
+
+      <p id="paragraph">
+        This is the mighty <span style="color: {{color1}}">{{protagonist}}</span>.  
+        He has to defeat the evil <span style="color: {{color2}}">{{antagonist}}</span>.
+      </p>
+
+      <input id="nameInput" value="{{protagonist}}"
+           placeholder="Protagonist's name">
+      <input id="nameInput2" value="{{antagonist}}"
+           placeholder="Antagonist's name">
+
+      
+
+    </template>
+
+      <script>
+
+        Polymer('story-maker', {
+        protagonist: "",
+        antagonist: "",
+        color1: "blue",
+        color2: "red",
+        
+      
+
+      });
+
+
+      </script>
+
+    
+    </polymer-element>
