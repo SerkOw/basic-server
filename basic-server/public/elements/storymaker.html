@@ -13,6 +13,11 @@
       <input id="nameInput2" value="{{antagonist}}"
            placeholder="Antagonist's name">
 
+
+<button on-click="{{setFocus}}">Click here to electrocute the antagonist</button>
+
+  
+
       
 
     </template>
@@ -24,8 +29,11 @@
         antagonist: "",
         color1: "blue",
         color2: "red",
+
+        setFocus: function() {
+        this.$.nameInput2.focus() }
         
-      
+    
 
       });
 
