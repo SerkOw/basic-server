@@ -1,9 +1,20 @@
+
+
 <link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="research-table.html">
+<link rel="import" href="data-viz.html">
+
 
 <polymer-element name="story-maker">
-    <template>
 
-      <p id="paragraph">
+
+</style>
+    <template>
+      <template>
+       <research-table></research-table>
+      </template> 
+
+      <p class="paragraph">
         This is the mighty <span style="color: {{color1}}">{{protagonist}}</span>.  
         He has to defeat the evil <span style="color: {{color2}}">{{antagonist}}</span>.
       </p>
@@ -14,11 +25,21 @@
            placeholder="Antagonist's name">
 
 
-<button on-click="{{setFocus}}">Click here to electrocute the antagonist</button>
-
-  
-
+      <button on-click="{{electrocute}}">Click here to electrocute the antagonist</button>
       
+      <br>
+      </br>
+
+        <p>
+        <h2>Dutch Olympic Medals</h2>
+          <br>
+            <research-table></research-table>
+          </br>
+        </p>
+        <br>
+        <h2>Apple Stock Prices</h2>
+        <data-viz symbol="AAPL"></data-viz>
+        </br>
 
     </template>
 
@@ -30,10 +51,8 @@
         color1: "blue",
         color2: "red",
 
-        setFocus: function() {
+        electrocute: function() {
         this.$.nameInput2.focus() }
-        
-    
 
       });
 
