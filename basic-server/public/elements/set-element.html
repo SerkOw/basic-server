@@ -1,0 +1,67 @@
+
+<link rel="import" href="../bower_components/polymer-ajax/polymer-ajax.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="research-table" noscript>
+
+<style>
+#data-list {
+  font-family: Calibri;
+  border-style: groove;
+  margin-left:auto; 
+  margin-right:auto; 
+  text-align:center;
+}
+    thead {
+      background-color: #0099FF;
+    }
+    .datarows {
+      background: #CCFFFF;
+    
+    }
+   
+  </style>
+
+  <template>
+    <table id="data-list">
+      <thead>
+        <tr>
+          <td>Game</td>
+          <td>Was it a summer game?</td>
+          <td>Dutch medals</td>
+       </tr>
+      </thead>
+
+
+<core-ajax url="https://assignmentdata.firebaseio.com/.json" 
+method= "PUT" auto body= '{"githunName": "SerkOw"}'
+response="{{data}}"></core-ajax>
+
+{{data}}
+
+
+      <polymer-ajax url="https://assignmentdata.firebaseio.com/.json" auto response="{{data}}"></polymer-ajax>
+      <template repeat= "{{ data }}">
+        <tr class="datarows"><td>{{games}}</td><td>{{summergames}}</td><td>{{medals}}</td></tr>
+        
+      </template>
+      <button on-click="{{buttonClick}}">Source</button>
+    </table>
+  </template>
+
+  <script>
+
+Polymer('research-table', {
+        
+        buttonClick: function() {alert('http://en.wikipedia.org/wiki/Netherlands_at_the_Olympics')}
+      
+
+     });
+
+  </script>
+</polymer-element>
+
+<!--          
+<research-table></research-table>
+    <link rel="import" href="../elements/research-table.html">
+-->
