@@ -69,6 +69,46 @@
 		width: 1000px;
 	}
 	
+	#menu
+	{
+	position: relative;
+	background: #BCC6CC;
+	height: 3.5em;
+	padding: 0em 1.0em 0em 1.0em;
+	margin-bottom: 2px;
+	}
+
+	#menu ul
+	{
+	position: absolute;
+	top: 1.1em;
+	}
+
+#menu ul li
+{
+position: relative;
+display: inline;
+}
+
+#menu ul li a
+{
+padding: 0.5em 1.0em 0.9em 1.0em;
+color: #fff;
+text-decoration: none;
+}
+
+#menu ul li a:hover
+{
+text-decoration: underline;
+}
+
+#menu ul li a.active
+{
+background: #fff url('images/menuactive.gif') repeat-x top left;
+border: solid;
+border-radius:20;
+}
+	
 /*********************************************************************************/
 /* Image Style                                                                   */
 /*********************************************************************************/
