@@ -36,6 +36,7 @@
         <li><a href="../stage 1.html">Stage 1</a></li>
         <li><a href="../stage 2.html" >Stage 2</a></li>
         <li class="current_page_item"><a href="../stage 3.html">Stage 3</a></li>
+        <li><a href="../stage 4.html" >Stage 4</a></li>
         <li><a href="../about us.html">About Us</a></li>
       </ul>
     </div>
@@ -52,24 +53,151 @@
     In the third stage we were planning to connect the working elements to an API. With this API we were planning to connect our working elements to an API. With the FireBase data and the API the goal was to connect these elements to a sentiment analysis. Even though we were not able to accomplish this, we will provide a short demonstration of our original goal through other means. 
   </p>
 
-   <br>
-        <h2>Apple Stock Prices</h2>
-        <data-viz symbol="AAPL"></data-viz>
-    </br>
+<div class="graph">
+  <h1> D3 </h1>
+<div>
+ 
 
         </div>
       </div>
     </div>
   </div>
+
+
+
+
 </div>     
 
 
- <script type='text/javascript'>
+<script type='text/javascript'>
 
+
+d3.json( 'https://finalportfolio.firebaseio.com/.json', 
+  function (finalportfolio){;
+ 
+var margin = { top: 30, right: 30, bottom: 30, left: 50 };
+var w = 800 - margin.left - margin.right; 
+var h = 550  - margin.top - margin.bottom;
+var chartHeight = 400;
+var barPadding = 10
+ 
+var date = function(d) {return d.Date};
+var close = function(d) {return d.Close};
+
+ 
+//add svg area
+ 
+var svg = d3.select(".graph")
+            .append("svg")
+            .attr("width", w + margin.left + margin.right)
+            .attr("height", h + margin.top + margin.bottom)
+            .append('g')
+            .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+ 
+ 
+//generate scales and axis
+            
+var xScale = d3.scale.ordinal()
+  .domain(d3.range(finalportfolio.length))
+  .rangeRoundBands([0, w], 0.2);
+ 
+  var yScale = d3.scale.linear()
+  .domain([0, d3.max(finalportfolio, function(d) { return d.Close + 100; })])
+  .range([chartHeight, 0])
+ 
+var yAxis = d3.svg.axis()
+  .scale(yScale)
+  .orient("left")
+  .ticks(8);
+ 
+//group  chart elements
+ 
+var barChart = svg.selectAll('g')
+    .data(finalportfolio)
+    .enter()
+    .append('g')
+    .attr('x', function(d,i) {
+      return xScale(i) + xScale.rangeBand();
+    })
+    .attr('width', xScale.rangeBand() + 10)
+    .attr('height', chartHeight)
+    .append('g')
+    .attr("transform", function(d, i) {
+      return "translate(" + xScale(i) + "," + 0 + ")";
+    })
+ 
+//ad chart bars
+ 
+    barChart.append('rect')
+    .attr('x', 0)
+    .attr('y', function(d) {
+      return yScale(d.Close);
+    })
+    .attr('width', xScale.rangeBand()) 
+    .attr('height', function(d){
+      return chartHeight - yScale(d.Close);
+    })
+  .attr("fill", function(d) {
+    return "rgb(64, 224, " + (d.Date) + ")";})
+.on("mouseover", function() {
+        d3.select(this)
+          .attr("fill", "#009E2D");})
+.on("mouseout", function() {
+        d3.select(this)
+        .transition()
+        .duration(250)
+          .attr("fill", function(d) {
+    return "rgb(64, 224, " + (d.Close) + ")";})})
+.attr('stroke', function(d){
+    if(d.close){
+      return 'orange';
+    }
+    return '#009E2D';
+  })
+    .style('stroke-width', '2px')
+ 
+//add bar data labels
+            
+barChart.append("text")
+    .text(close)
+    .attr("text-anchor", "middle")
+    .attr("x", function(d, i) { return xScale.rangeBand() / 2; })
+    .attr("y", function(d) { return yScale(d.Close) + 20; })
+    .attr("font-family", "calibri")
+    .attr("font-size", "11px")
+    .style("writing-mode", "tb")
+    .attr("fill", function(d) {
+    return "rgb(64, 224, " + (d.Close) + ")";})
+ 
+//add bar names
+ 
+  barChart.append("text")
+    .text(date)
+    .attr("x", function(d, i) { return xScale.rangeBand() / 2; })
+    .attr("y", chartHeight + 10)
+    .attr("font-family", "calibri")
+    .attr("font-size", "14px", "bold")
+    .attr("fill", function(d) {
+    return "rgb(64, 224, " + (d.Date) + ")";})
+    .style("writing-mode", "tb");
+ 
+//add yAxis
+  
+  svg.append("g")
+    .attr("class", "axis")
+    .call(yAxis)
+    .attr("fill", "#yellow")
+    //.attr("stroke", "yellow")
+    .attr("font-family", "calibri")
+    .attr("font-size", "16px")
+ 
+    });
 
 
 
  </script>
+
+
 
 
 
