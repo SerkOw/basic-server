@@ -1,4 +1,4 @@
 basic-server
 ============
 
-This is my basic server for simple websites
+This is the basic server for assignments and porfolios
